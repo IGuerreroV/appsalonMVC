@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { glob } from 'glob'
-import { src, dest, series } from 'gulp'
+import { src, dest, watch, series } from 'gulp'
 import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
 import terser from 'gulp-terser'
@@ -35,7 +35,7 @@ export async function imagenes( done ) {
     const buildDir = './public/build/img'
     const images = await glob('./src/img/**/*')
 
-    images.foreach(file => {
+    images.forEach(file => {
         const relativePath = path.relative(srcDir, path.dirname(file))
         const outputSubDir = path.join(buildDir, relativePath)
         procesarImagenes(file, outputSubDir)
