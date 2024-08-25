@@ -2,9 +2,12 @@
 
 namespace Controllers;
 
+use MVC\Router;
+
 class loginController {
-    public static function login() {
-        echo 'Desde el controlador de login';
+    public static function login(Router $router) {
+
+        $router->render('auth/login');
     }
 
     public static function logout() {
@@ -18,7 +21,7 @@ class loginController {
     public static function recuperar() {
         echo 'Desde el controlador de recuperar';
     }
-    
+
     public static function crear() {
         echo 'Desde el controlador de crear';
     }
