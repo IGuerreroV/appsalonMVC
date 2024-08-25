@@ -1,0 +1,5 @@
+# Ignorar directorio vendor
+/vendor
+
+# Ignorar directorio node_modules
+/node_modules

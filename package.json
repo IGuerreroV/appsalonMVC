@@ -1,0 +1,19 @@
+{
+  "name": "appsalonmvc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp"
+  },
+  "author": "Ivan Guerrero",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "glob": "^10.3.12",
+    "gulp": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-terser": "^2.1.0",
+    "sass": "^1.75.0",
+    "sharp": "^0.33.3"
+  }
+}

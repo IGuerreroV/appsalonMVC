@@ -1,0 +1,21 @@
+{
+    "name": "ivang/appsalon-mvc",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
+            "Classes\\" : "./classes"
+
+        }
+    },
+    "authors": [
+        {
+            "name": "Ivan Guerrero",
+            "email": "ivangvprogrammer@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
