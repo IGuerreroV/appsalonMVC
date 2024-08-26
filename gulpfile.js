@@ -6,6 +6,8 @@ import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass'
 import terser from 'gulp-terser'
 import sharp from 'sharp'
+import gulpPlumber from 'gulp-plumber'
+import { log } from 'console'
 
 const sass = gulpSass(dartSass)
 
@@ -16,9 +18,16 @@ const paths = {
 
 export function css( done ) {
     src(paths.scss, {sourcemaps: true})
+    .pipe(gulpPlumber({
+        errorHandler: function (err) {
+            console.log(err.message)
+            this.emit('end')
+        }
+    }))
         .pipe( sass({
             outputStyle: 'compressed'
-        }).on('error', sass.logError) )
+        }).on('error', sass.logError)
+        )
         .pipe( dest('./public/build/css', {sourcemaps: '.'}) )
     done()
 }
