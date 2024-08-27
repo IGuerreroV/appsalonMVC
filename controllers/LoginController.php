@@ -22,7 +22,11 @@ class loginController {
         echo 'Desde el controlador de recuperar';
     }
 
-    public static function crear() {
-        echo 'Desde el controlador de crear';
+    public static function crear(Router $router) {
+        
+
+        $router->render('auth/crear-cuenta', [
+            
+        ]);
     }
 }
