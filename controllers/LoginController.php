@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use MVC\Router;
+use Model\Usuario;
 
 class loginController {
     public static function login(Router $router) {
@@ -26,10 +27,13 @@ class loginController {
     }
 
     public static function crear(Router $router) {
-        
+        $usuario = new Usuario;
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $usuario->sincronizar($_POST);
+        }
 
         $router->render('auth/crear-cuenta', [
-
+            'usuario' => $usuario
         ]);
     }
 }
