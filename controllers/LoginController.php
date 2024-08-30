@@ -38,6 +38,14 @@ class loginController {
             // Revisar si no hay errores en el arreglo de alertas
             if(empty($alertas)) {
                 // Verificar si el usuario ya existe
+                $resultado = $usuario->existeUsuario();
+
+                if($resultado->num_rows) {
+                    $alertas = Usuario::getAlertas();
+                } else {
+                    // No esta registrado
+                    debuguear('No esta registrado');
+                }
             }
         }
 
