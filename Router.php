@@ -16,7 +16,7 @@ class Router {
 
     public function comprobarRutas() {
         // Proteger Rutas...
-        session_start();
+        isSession();
 
         $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
