@@ -72,7 +72,11 @@ class loginController {
                     $usuario->crearToken();
                     $usuario->guardar();
 
-                    // TODO: Enviar un email de recuperación
+                    // Enviar un email de recuperación
+                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    $email->enviarInstrucciones();
+
+                    // Alerta de exito
                     Usuario::setAlerta('exito', 'Se ha enviado un email con las instrucciones para recuperar tu contraseña');
 
                 } else {
