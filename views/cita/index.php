@@ -50,4 +50,16 @@
         <h2>Resumen</h2>
         <p class="text-center" >Verifica que la información sea correcta</p>
     </div>
+
+    <div class="paginacion">
+        <button
+            class="boton"
+            id="anterior"
+        >&laquo; Anterior</button>
+
+        <button
+            class="boton"
+            id="siguiente"
+        >Siguiente &raquo;</button>
+    </div>
 </div>
