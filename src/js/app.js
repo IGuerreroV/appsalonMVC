@@ -10,8 +10,18 @@ function iniciarApp() {
 }
 
 function mostrarSeccion() {
-    console.log('Mostrando seccion');
-    
+
+    // Ocultar la seccion anterior
+    const seccionAnterior = document.querySelector('.mostrar')
+    if(seccionAnterior) {
+        seccionAnterior.classList.remove('mostrar')
+    }
+
+    // Sleccionar la seccion con el paso actual
+    const pasoSelector = `#paso-${paso}`
+    const seccion = document.querySelector(pasoSelector)
+    seccion.classList.add('mostrar')
+
 }
 
 function tabs() {
