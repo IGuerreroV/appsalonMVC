@@ -3,7 +3,7 @@
 
 <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
 
-<?php if($error) return; ?>
+<?php if ($error) return; ?>
 
 <form class="formulario" method="POST">
     <div class="campo">
@@ -12,8 +12,7 @@
             type="password"
             id="password"
             name="password"
-            placeholder="Tu Nuevo password"
-        >
+            placeholder="Tu Nuevo password">
     </div>
     <input class="boton" type="submit" value="Guardar Nuevo Password">
 </form>

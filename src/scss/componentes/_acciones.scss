@@ -2,16 +2,16 @@
 @use 'base/mixins' as m;
 
 .acciones {
-    margin-top: v.$separacion;
-    @include m.tablet {
-        display: flex;
-        justify-content: space-between;
-    }
+  margin-top: v.$separacion;
+  @include m.tablet {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    a {
-        color: v.$blanco;
-        display: block;
-        margin-bottom: calc(v.$separacion / 2);
-        text-align: center;
-    }
+  a {
+    color: v.$blanco;
+    display: block;
+    margin-bottom: calc(v.$separacion / 2);
+    text-align: center;
+  }
 }

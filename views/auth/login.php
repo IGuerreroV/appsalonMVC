@@ -2,7 +2,7 @@
 <p class="descripcion-pagina">Inicia sesión con tus datos</p>
 
 <?php
-    include_once __DIR__ . '/../templates/alertas.php';
+include_once __DIR__ . '/../templates/alertas.php';
 ?>
 
 <form class="formulario" method="POST" action="/">
@@ -12,8 +12,7 @@
             type="email"
             id="email"
             placeholder="Tu Email"
-            name="email"
-        />
+            name="email" />
     </div>
 
     <div class="campo">
@@ -22,10 +21,9 @@
             type="password"
             id="password"
             placeholder="Tu Password"
-            name="password"
-        >
+            name="password">
     </div>
- 
+
     <input class="boton" type="submit" value="Iniciar Sesión">
 </form>
 

@@ -10,8 +10,7 @@
             type="email"
             id="email"
             name="email"
-            placeholder="Tu Email"
-        >
+            placeholder="Tu Email">
     </div>
 
     <input class="boton" type="submit" value="Enviar Instrucciones">
