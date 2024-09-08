@@ -12,6 +12,8 @@ function iniciarApp() {
   botonesPaginador(); // Agrega o quita los botones del paginador
   paginaSiguiente(); // Cambia de paso al siguiente
   paginaAnterior(); // Cambia de paso al anterior
+
+  consultarAPI(); // Consulta la API en el backend de PHP
 }
 
 function mostrarSeccion() {
@@ -84,4 +86,18 @@ function paginaSiguiente() {
 
     botonesPaginador();
   });
+}
+
+async function consultarAPI() {
+  try {
+    const url = 'http://localhost:3000/api/servicios';
+    const resultado = await fetch(url);
+    const servicios = await resultado.json();
+
+    console.log(servicios);
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
 }
