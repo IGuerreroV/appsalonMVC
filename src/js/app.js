@@ -2,6 +2,13 @@ let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
 
+const cita = {
+  nombre: '',
+  fecha: '',
+  hora: '',
+  servicios: []
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   iniciarApp();
 });
@@ -116,10 +123,22 @@ function mostrarServicios(servicios) {
     const divServicio = document.createElement('DIV')
     divServicio.classList.add('servicio')
     divServicio.dataset.idServicio = id
+    divServicio.onclick = function() {
+      seleccionarServicio(servicio);
+    }
 
     divServicio.appendChild(nombreServicio)
     divServicio.appendChild(precioServicio)
 
     document.querySelector('#servicios').appendChild(divServicio)
   })
+}
+
+function seleccionarServicio(servicio) {
+  const { servicios } = cita
+
+  cita.servicios = [...servicios, servicio]
+
+  console.log(cita);
+  
 }
