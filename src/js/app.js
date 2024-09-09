@@ -135,10 +135,12 @@ function mostrarServicios(servicios) {
 }
 
 function seleccionarServicio(servicio) {
+  const { id } = servicio
   const { servicios } = cita
-
   cita.servicios = [...servicios, servicio]
 
-  console.log(cita);
+  const divServicio = document.querySelector(`[data-id-servicio="${id}"]`)
+  divServicio.classList.add('seleccionado')
+  console.log(servicio);
   
 }
