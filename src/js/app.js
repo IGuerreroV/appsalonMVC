@@ -168,12 +168,30 @@ function seleccionarFecha() {
 
     if( [6, 0].includes(dia) ) {
       event.target.value = ''
-      console.log('Sabados y Domingos no abrimos');
-      
+      mostrarAlerta('Fines de semana no permitidos', 'error')
     } else {
       cita.fecha = event.target.value
-      
     }
-    
   })
+}
+
+function mostrarAlerta(mensaje, tipo) {
+  // Previene que se muestren mas de una alerta
+  const alertaPrevia = document.querySelector('.alerta')
+  if(alertaPrevia) return
+
+  // Scripting para crear la alerta
+  const alerta = document.createElement('DIV')
+  alerta.textContent = mensaje
+  alerta.classList.add('alerta')
+  alerta.classList.add(tipo)
+
+  const formulario = document.querySelector('.formulario')
+  formulario.appendChild(alerta)
+
+  // Eliminar la alerta despues de 3 segundos
+  setTimeout(() => {
+    alerta.remove()
+  }, 3000)
+
 }
