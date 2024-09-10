@@ -172,7 +172,7 @@ function seleccionarFecha() {
 
     if( [6, 0].includes(dia) ) {
       event.target.value = ''
-      mostrarAlerta('Fines de semana no permitidos', 'error')
+      mostrarAlerta('Fines de semana no permitidos', 'error', '.formulario')
     } else {
       cita.fecha = event.target.value
     }
@@ -186,7 +186,7 @@ function seleccionarHora() {
     const hora = horaCita.split(':')[0]
     if(hora < 10 || hora > 18) {
       event.target.value = ''
-      mostrarAlerta('Hora No Válida', 'error');
+      mostrarAlerta('Hora No Válida', 'error', '.formulario');
     } else {
       cita.hora = event.target.value
       console.log(cita);
@@ -194,10 +194,12 @@ function seleccionarHora() {
   })
 }
 
-function mostrarAlerta(mensaje, tipo) {
+function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
   // Previene que se muestren mas de una alerta
   const alertaPrevia = document.querySelector('.alerta')
-  if(alertaPrevia) return
+  if(alertaPrevia) {
+    alertaPrevia.remove()
+  }
 
   // Scripting para crear la alerta
   const alerta = document.createElement('DIV')
@@ -205,22 +207,22 @@ function mostrarAlerta(mensaje, tipo) {
   alerta.classList.add('alerta')
   alerta.classList.add(tipo)
 
-  const formulario = document.querySelector('.formulario')
-  formulario.appendChild(alerta)
+  const referencia = document.querySelector(elemento)
+  referencia.appendChild(alerta)
 
-  // Eliminar la alerta despues de 3 segundos
-  setTimeout(() => {
-    alerta.remove()
-  }, 3000)
+  if(desaparece) {
+    // Eliminar la alerta despues de 3 segundos
+    setTimeout(() => {
+      alerta.remove();
+    }, 3000);
+  }
 }
 
 function mostrarResumen() {
   const resumen = document.querySelector('.contenido-resumen')
 
-  console.log(cita.servicios.length);
-
-  if(Object.values(cita).includes('')) {
-    console.log('Hacen falta datos');
+  if(Object.values(cita).includes('') || cita.servicios.length === 0) {
+    mostrarAlerta('Faltan datos de servicios, Fecha u Hora', 'error', '.contenido-resumen', false)
   } else {
     console.log('Todo correcto');
   }
