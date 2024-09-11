@@ -219,50 +219,68 @@ function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
 }
 
 function mostrarResumen() {
-  const resumen = document.querySelector('.contenido-resumen')
+  const resumen = document.querySelector('.contenido-resumen');
 
   // Limpiar el contenido de resumen
-  while(resumen.firstChild) {
-    resumen.removeChild(resumen.firstChild)
+  while (resumen.firstChild) {
+    resumen.removeChild(resumen.firstChild);
   }
 
-  if(Object.values(cita).includes('') || cita.servicios.length === 0) {
-    mostrarAlerta('Faltan datos de servicios, Fecha u Hora', 'error', '.contenido-resumen', false)
-    return
+  if (Object.values(cita).includes('') || cita.servicios.length === 0) {
+    mostrarAlerta(
+      'Faltan datos de servicios, Fecha u Hora',
+      'error',
+      '.contenido-resumen',
+      false
+    );
+    return;
   }
 
-  // Formatear el resumen
+  // Destructurando el objeto de la cita
   const { nombre, fecha, hora, servicios } = cita;
 
-  const nombreCliente = document.createElement('P')
-  nombreCliente.innerHTML = `<span>Nombre:</span>${nombre}`
+  // Heading para Servicios en el Resumen
+  const headingServicios = document.createElement('H3');
+  headingServicios.textContent = 'Resumen de Servicios';
+  resumen.appendChild(headingServicios);
 
-  const fechaCita = document.createElement('P');
-  fechaCita.innerHTML = `<span>Fecha:</span>${fecha}`;
+  // Iterando y creando los servicios
+  servicios.forEach((servicio) => {
+    const { id, nombre, precio } = servicio;
+    const contenedorServicio = document.createElement('DIV');
+    contenedorServicio.classList.add('contenedor-servicio');
 
-  const horaCita = document.createElement('P');
-  horaCita.innerHTML = `<span>Hora:</span>${hora}`;
+    const textoServicio = document.createElement('P');
+    textoServicio.textContent = nombre;
 
-  servicios.forEach(servicio => {
-    const { id, nombre, precio } = servicio
-    const contenedorServicio = document.createElement('DIV')
-    contenedorServicio.classList.add('contenedor-servicio')
+    const precioServicio = document.createElement('P');
+    precioServicio.innerHTML = `<span>Precio:</span> $${precio}`;
 
-    const textoServicio = document.createElement('P')
-    textoServicio.textContent = nombre
+    contenedorServicio.appendChild(textoServicio);
 
-    const precioServicio = document.createElement('P')
-    precioServicio.innerHTML = `<span>Precio:</span>$${precio}`
-
-    contenedorServicio.appendChild(textoServicio)
     contenedorServicio.appendChild(precioServicio);
 
-    resumen.appendChild(contenedorServicio)
-  })
+    resumen.appendChild(contenedorServicio);
+  });
 
-  resumen.appendChild(nombreCliente)
-  resumen.appendChild(fechaCita)
-  resumen.appendChild(horaCita)
+  // Heading para Cita en el Resumen
+  const headingCita = document.createElement('H3');
+  headingCita.textContent = 'Resumen de Cita';
+  resumen.appendChild(headingCita);
+
+  // Formatear el Resumen
+  const nombreCliente = document.createElement('P');
+  nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
+
+  const fechaCita = document.createElement('P');
+  fechaCita.innerHTML = `<span>Fecha:</span> ${fecha}`;
+
+  const horaCita = document.createElement('P');
+  horaCita.innerHTML = `<span>Hora:</span> ${hora} Horas`;
+
+  resumen.appendChild(nombreCliente);
+  resumen.appendChild(fechaCita);
+  resumen.appendChild(horaCita);
 
   console.log(nombreCliente);
 }
