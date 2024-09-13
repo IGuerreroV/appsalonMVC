@@ -304,5 +304,9 @@ function mostrarResumen() {
 }
 
 function reservarCita() {
-  console.log('Reservando Cita...');
+  
+  const datos = new FormData();
+  datos.append('nombre', 'Ivan')
+
+  // console.log([...datos]);
 }
