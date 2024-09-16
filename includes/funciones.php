@@ -21,3 +21,10 @@ function isSession(): void
         session_start();
     }
 }
+
+// Función que revisa que el usuario esté autenticado
+function isAuth(): void {
+    if(!isset($_SESSION['login'])) {
+        header('Location: /');
+    }
+};
