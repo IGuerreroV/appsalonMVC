@@ -20,8 +20,10 @@ include_once __DIR__ . '/../templates/barra.php';
 <div id="citas-admin">
     <ul class="citas">
         <?php $idCita = null; ?>
-        <?php foreach ($citas as $cita): ?>
-            <?php if ($idCita !== $cita->id): ?>
+        <?php foreach ($citas as $key => $cita): ?>
+            <?php if ($idCita !== $cita->id):
+                $total = 0;
+            ?>
                 <li>
                     <p>ID: <span><?php echo $cita->id; ?></span></p>
                     <p>Hora: <span><?php echo $cita->hora; ?></span></p>
@@ -32,8 +34,17 @@ include_once __DIR__ . '/../templates/barra.php';
                     <h3>Servicios</h3>
 
                 <?php $idCita = $cita->id; ?> <!-- Actualizar $idCita -->
-            <?php endif; ?> <!-- Fin If -->
+            <?php endif;
+                $total += $cita->precio;
+            ?> <!-- Fin If -->
                     <p class="servicio"><?php echo $cita->servicio . ' ' . $cita->precio; ?></p> <!-- Mostrar Servicio y Precio -->
+                <?php
+                    $actual = $cita->id;
+                    $proximo = $citas[$key + 1]->id ?? 0;
+
+                    if(esUltimo($actual, $proximo)) : ?>
+                        <p class="total">Total: <span>$ <?php echo $total;?></span></p>
+                    <?php endif; ?> <!-- Fin If -->
         <?php endforeach; ?><!-- Fin Foreach -->
     </ul>
 </div>
