@@ -7,8 +7,8 @@ const cita = {
   nombre: '',
   fecha: '',
   hora: '',
-  servicios: []
-}
+  servicios: [],
+};
 
 document.addEventListener('DOMContentLoaded', function () {
   iniciarApp();
@@ -44,13 +44,13 @@ function mostrarSeccion() {
   seccion.classList.add('mostrar');
 
   // Eliminar la clase de actual en el tab anterior
-  const tabAnterior = document.querySelector('.actual')
-  if(tabAnterior) {
-    tabAnterior.classList.remove('actual')
+  const tabAnterior = document.querySelector('.actual');
+  if (tabAnterior) {
+    tabAnterior.classList.remove('actual');
   }
 
   // Resalta el tab actual
-  const tab = document.querySelector(`[data-paso="${paso}"]`)
+  const tab = document.querySelector(`[data-paso="${paso}"]`);
   tab.classList.add('actual');
 }
 
@@ -69,7 +69,7 @@ function botonesPaginador() {
   const paginaAnterior = document.querySelector('#anterior');
   const paginaSiguiente = document.querySelector('#siguiente');
 
-  if(paso === 1) {
+  if (paso === 1) {
     paginaAnterior.classList.add('ocultar');
     paginaSiguiente.classList.remove('ocultar');
   } else if (paso === 3) {
@@ -87,11 +87,11 @@ function botonesPaginador() {
 function paginaAnterior() {
   const paginaAnterior = document.querySelector('#anterior');
   paginaAnterior.addEventListener('click', () => {
-    if(paso <= pasoInicial) return;
+    if (paso <= pasoInicial) return;
     paso--;
 
     botonesPaginador();
-  })
+  });
 }
 
 function paginaSiguiente() {
@@ -110,50 +110,49 @@ async function consultarAPI() {
     const resultado = await fetch(url);
     const servicios = await resultado.json();
     mostrarServicios(servicios);
-    
   } catch (error) {
     console.log(error);
   }
 }
 
 function mostrarServicios(servicios) {
-  servicios.forEach(servicio => {
+  servicios.forEach((servicio) => {
     const { id, nombre, precio } = servicio;
 
     // DOM scripting
-    const nombreServicio = document.createElement('P')
-    nombreServicio.classList.add('nombre-servicio')
-    nombreServicio.textContent = nombre
+    const nombreServicio = document.createElement('P');
+    nombreServicio.classList.add('nombre-servicio');
+    nombreServicio.textContent = nombre;
 
-    const precioServicio = document.createElement('P')
-    precioServicio.classList.add('precio-servicio')
-    precioServicio.textContent = `$${precio}`
+    const precioServicio = document.createElement('P');
+    precioServicio.classList.add('precio-servicio');
+    precioServicio.textContent = `$${precio}`;
 
-    const divServicio = document.createElement('DIV')
-    divServicio.classList.add('servicio')
-    divServicio.dataset.idServicio = id
-    divServicio.onclick = function() {
+    const divServicio = document.createElement('DIV');
+    divServicio.classList.add('servicio');
+    divServicio.dataset.idServicio = id;
+    divServicio.onclick = function () {
       seleccionarServicio(servicio);
-    }
+    };
 
-    divServicio.appendChild(nombreServicio)
-    divServicio.appendChild(precioServicio)
+    divServicio.appendChild(nombreServicio);
+    divServicio.appendChild(precioServicio);
 
-    document.querySelector('#servicios').appendChild(divServicio)
-  })
+    document.querySelector('#servicios').appendChild(divServicio);
+  });
 }
 
 function seleccionarServicio(servicio) {
-  const { id } = servicio
-  const { servicios } = cita
+  const { id } = servicio;
+  const { servicios } = cita;
 
   // Identificar el elemento al que se le dio click
   const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
 
   // Verificar si el servicio ya esta seleccionado
-  if( servicios.some(agregado => agregado.id === id)) {
+  if (servicios.some((agregado) => agregado.id === id)) {
     // Eliminar el servicio del arreglo
-    cita.servicios = servicios.filter(agregado => agregado.id !== id)
+    cita.servicios = servicios.filter((agregado) => agregado.id !== id);
     divServicio.classList.remove('seleccionado');
   } else {
     // Agregar el servicio al arreglo
@@ -164,59 +163,59 @@ function seleccionarServicio(servicio) {
 }
 
 function idCliente() {
-  cita.id = document.querySelector('#id').value
+  cita.id = document.querySelector('#id').value;
 }
 
 function nombreCliente() {
-  cita.nombre = document.querySelector('#nombre').value
+  cita.nombre = document.querySelector('#nombre').value;
 }
 
 function seleccionarFecha() {
-  const inputFecha = document.querySelector('#fecha')
-  inputFecha.addEventListener('input', function(event) {
-    const dia = new Date(event.target.value).getUTCDay()
+  const inputFecha = document.querySelector('#fecha');
+  inputFecha.addEventListener('input', function (event) {
+    const dia = new Date(event.target.value).getUTCDay();
 
-    if( [6, 0].includes(dia) ) {
-      event.target.value = ''
-      mostrarAlerta('Fines de semana no permitidos', 'error', '.formulario')
+    if ([6, 0].includes(dia)) {
+      event.target.value = '';
+      mostrarAlerta('Fines de semana no permitidos', 'error', '.formulario');
     } else {
-      cita.fecha = event.target.value
+      cita.fecha = event.target.value;
     }
-  })
+  });
 }
 
 function seleccionarHora() {
-  const inputHora = document.querySelector('#hora')
-  inputHora.addEventListener('input', function(event) {
-    const horaCita = event.target.value
-    const hora = horaCita.split(':')[0]
-    if(hora < 10 || hora > 18) {
-      event.target.value = ''
+  const inputHora = document.querySelector('#hora');
+  inputHora.addEventListener('input', function (event) {
+    const horaCita = event.target.value;
+    const hora = horaCita.split(':')[0];
+    if (hora < 10 || hora > 18) {
+      event.target.value = '';
       mostrarAlerta('Hora No Válida', 'error', '.formulario');
     } else {
-      cita.hora = event.target.value
+      cita.hora = event.target.value;
       console.log(cita);
     }
-  })
+  });
 }
 
 function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
   // Previene que se muestren mas de una alerta
-  const alertaPrevia = document.querySelector('.alerta')
-  if(alertaPrevia) {
-    alertaPrevia.remove()
+  const alertaPrevia = document.querySelector('.alerta');
+  if (alertaPrevia) {
+    alertaPrevia.remove();
   }
 
   // Scripting para crear la alerta
-  const alerta = document.createElement('DIV')
-  alerta.textContent = mensaje
-  alerta.classList.add('alerta')
-  alerta.classList.add(tipo)
+  const alerta = document.createElement('DIV');
+  alerta.textContent = mensaje;
+  alerta.classList.add('alerta');
+  alerta.classList.add(tipo);
 
-  const referencia = document.querySelector(elemento)
-  referencia.appendChild(alerta)
+  const referencia = document.querySelector(elemento);
+  referencia.appendChild(alerta);
 
-  if(desaparece) {
+  if (desaparece) {
     // Eliminar la alerta despues de 3 segundos
     setTimeout(() => {
       alerta.remove();
@@ -279,15 +278,20 @@ function mostrarResumen() {
   nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
 
   // Formatear la fecha en español
-  const fechaObj = new Date(fecha)
-  const mes = fechaObj.getMonth()
+  const fechaObj = new Date(fecha);
+  const mes = fechaObj.getMonth();
   const dia = fechaObj.getDate() + 2;
   const year = fechaObj.getFullYear();
 
-  const fechaUTC = new Date( Date.UTC(year, mes, dia))
+  const fechaUTC = new Date(Date.UTC(year, mes, dia));
 
-  const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-  const fechaFormateada = fechaUTC.toLocaleDateString('es-CO', opciones)
+  const opciones = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const fechaFormateada = fechaUTC.toLocaleDateString('es-CO', opciones);
   console.log(fechaFormateada);
 
   const fechaCita = document.createElement('P');
@@ -297,28 +301,27 @@ function mostrarResumen() {
   horaCita.innerHTML = `<span>Hora:</span> ${hora} Horas`;
 
   // Boton para crear la cita
-  const botonReservar = document.createElement('BUTTON')
+  const botonReservar = document.createElement('BUTTON');
   botonReservar.classList.add('boton');
-  botonReservar.textContent = 'Reservar Cita'
+  botonReservar.textContent = 'Reservar Cita';
   botonReservar.onclick = reservarCita;
 
   resumen.appendChild(nombreCliente);
   resumen.appendChild(fechaCita);
   resumen.appendChild(horaCita);
 
-  resumen.appendChild(botonReservar)
+  resumen.appendChild(botonReservar);
 }
 
 async function reservarCita() {
+  const { nombre, fecha, hora, id, servicios } = cita;
 
-  const { nombre, fecha, hora, id, servicios } = cita
-
-  const idServicios = servicios.map(servicio => servicio.id)
+  const idServicios = servicios.map((servicio) => servicio.id);
   // console.log(idServicios);
 
   const datos = new FormData();
-  datos.append('fecha', fecha)
-  datos.append('hora', hora)
+  datos.append('fecha', fecha);
+  datos.append('hora', hora);
   datos.append('usuario_id', id);
   datos.append('servicios', idServicios);
 
@@ -326,27 +329,27 @@ async function reservarCita() {
 
   try {
     // Peticion a la API
-    const url = 'http://localhost:3000/api/citas'
+    const url = 'http://localhost:3000/api/citas';
 
     const respuesta = await fetch(url, {
       method: 'POST',
-      body: datos
-    })
+      body: datos,
+    });
 
-    const resultado = await respuesta.json()
+    const resultado = await respuesta.json();
     console.log(resultado.resultado);
 
-    if(resultado.resultado) {
+    if (resultado.resultado) {
       Swal.fire({
         icon: 'success',
         title: 'Cita Creada',
         text: 'Tu cita fue creada correctamente',
-        button: 'OK'
-      }).then( () => {
+        button: 'OK',
+      }).then(() => {
         setTimeout(() => {
           window.location.reload();
-        }, 3000)
-      })
+        }, 3000);
+      });
     }
   } catch (error) {
     Swal.fire({
