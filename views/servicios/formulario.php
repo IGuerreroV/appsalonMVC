@@ -4,7 +4,8 @@
         type="text"
         id="nombre"
         placeholder="Nombre Servicio"
-        name="nombre">
+        name="nombre"
+        value="<?php echo $servicio->nombre; ?>">
 </div>
 
 <div class="campo">
@@ -13,5 +14,7 @@
         type="number"
         id="precio"
         placeholder="Precio Servicio"
-        name="precio">
+        name="precio"
+        value="<?php echo $servicio->precio; ?>"
+        >
 </div>
