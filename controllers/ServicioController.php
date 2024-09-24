@@ -25,11 +25,11 @@ class ServicioController
         $servicio = new Servicio;
         $alertas = [];
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $servicio->sincronizar($_POST);
             $alertas = $servicio->validar();
 
-            if(empty($alertas)) {
+            if (empty($alertas)) {
                 $servicio->guardar();
                 header('Location: /servicios');
             }
@@ -45,7 +45,7 @@ class ServicioController
     public static function actualizar(Router $router)
     {
         isSession();
-        if(!is_numeric($_GET['id'])) return;
+        if (!is_numeric($_GET['id'])) return;
 
         $servicio = Servicio::find($_GET['id']);
         $alertas =  [];
@@ -53,7 +53,7 @@ class ServicioController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $servicio->sincronizar($_POST);
             $alertas = $servicio->validar();
-            if(empty($alertas)) {
+            if (empty($alertas)) {
                 $servicio->guardar();
                 header('Location: /servicios');
             }
@@ -66,10 +66,13 @@ class ServicioController
         ]);
     }
 
-    public static function eliminar(Router $router)
+    public static function eliminar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            echo 'Eliminando...';
+            $id = $_POST['id'];
+            $servicio = Servicio::find($id);
+            $servicio->eliminar();
+            header('Location: /servicios');
         }
     }
 }
