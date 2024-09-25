@@ -22,7 +22,7 @@ class Router
         // Proteger Rutas...
         isSession();
 
-        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/'; // strtok corta la url en el signo de interrogacion, si no hay nada devuelve la barra
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
